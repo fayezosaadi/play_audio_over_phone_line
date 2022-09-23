@@ -99,6 +99,7 @@ def exec_AT_cmd(modem_AT_cmd):
         modem_response = modem_response + analog_modem.readline()
 
         print(modem_response)
+        print("AT Command Response: " + modem_response.decode('utf-8').strip(' \t\n\r' + chr(16)))
 
         disable_modem_event_listener = False
 
@@ -264,7 +265,8 @@ def read_data():
                     else:
                         print("Silence: Call Terminated")
 
-                if ("RING" in modem_data.decode('utf-8')) or ("DATE" in modem_data.decode('utf-8')) or ("TIME" in modem_data.decode('utf-8')) or ("NMBR" in modem_data.decode('utf-8')):
+                if ("RING" in modem_data.decode('utf-8')) or ("DATE" in modem_data.decode('utf-8')) or (
+                        "TIME" in modem_data.decode('utf-8')) or ("NMBR" in modem_data.decode('utf-8')):
                     if "RING" in modem_data.modem_data.decode('utf-8').strip(chr(16)):
                         ring_data = ring_data + modem_data
                         ring_count = ring_data.count("RING")
