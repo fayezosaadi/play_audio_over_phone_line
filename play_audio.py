@@ -275,7 +275,7 @@ def play_audio():
     # analog_modem.write(cmd.encode())
 
     # Hangup the Call
-    if not exec_AT_cmd("ATH", "OK"):
+    if not exec_AT_cmd("ATH"):
         print("Error: Unable to hang-up the call")
     else:
         print("\nAction: Call Terminated...")
