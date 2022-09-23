@@ -99,7 +99,7 @@ def exec_AT_cmd(modem_AT_cmd):
         modem_response = modem_response + analog_modem.readline()
 
         print(modem_response)
-        print("AT Command \rResponse: " + modem_response.decode('utf-8').strip(' \t\n\r' + chr(16)))
+        print("AT Command  \t\n\rResponse: " + modem_response.decode('utf-8').strip(' \t\n\r' + chr(16)))
 
         disable_modem_event_listener = False
 
