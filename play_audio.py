@@ -102,10 +102,10 @@ def exec_AT_cmd(modem_AT_cmd):
 
         disable_modem_event_listener = False
 
-        if ((modem_AT_cmd == "AT+VTX") or (modem_AT_cmd == "AT+VRX")) and ("CONNECT" in modem_response):
+        if ((modem_AT_cmd == "AT+VTX") or (modem_AT_cmd == "AT+VRX")) and ("CONNECT" in modem_response.decode('utf-8')):
             # modem in TAD mode
             return True
-        elif "OK" in modem_response:
+        elif "OK" in modem_response.decode('utf-8'):
             # Successful command execution
             return True
         else:
