@@ -287,7 +287,6 @@ def read_data():
             modem_data = analog_modem.readline()
             if modem_data != "":
                 print("\n-------------------------------------------")
-                print(modem_data.strip(chr(16)))
                 print("b".encode())
 
                 print("New Event: " + modem_data.strip().decode('utf-8'))
