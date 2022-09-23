@@ -13,7 +13,6 @@ import time
 import threading
 import atexit
 import sys
-import re
 import wave
 
 # =================================================================
@@ -158,50 +157,6 @@ def recover_from_error():
 
 
 # =================================================================
-# Pass DTMF Digits
-# =================================================================
-# def pass_dtmf_digits(dtmf_digits):
-#     # set the default duration/length for DTMF/tone generation in 0.01 (milliseconds) s increments.
-#     # The default tone duration is 100 (1 second).
-#     DTMF_TONE_DURATION = 100
-#
-#     # Gep between two DTMF Digit generation in seconds (default 1 sec)
-#     # Change this timer to add gap between DTMF Digits
-#     GAP_BETWEEN_TWO_DTMF_DIGITS = 1
-#
-#     # Fixed DTMF Tones (DTMF Frequencies generated on Key press)
-#     DTMF_TONES_FREQUENCIES = {'1': ['697', '1209'],
-#                               '2': ['697', '1336'],
-#                               '3': ['697', '1477'],
-#                               '4': ['770', '1209'],
-#                               '5': ['770', '1336'],
-#                               '6': ['770', '1477'],
-#                               '7': ['852', '1209'],
-#                               '8': ['852', '1336'],
-#                               '9': ['852', '1477'],
-#                               '0': ['941', '1336'],
-#                               '*': ['941', '1209'],
-#                               '#': ['941', '1477']
-#                               }
-#
-#     for dtmf_digit in dtmf_digits:
-#
-#         # The valid single characters are 0 - 9, #, *.
-#         # Generates DTMF tone according to the passed characters.
-#         print("Generating DTMF tone for: " + str(dtmf_digit))
-#         freq1 = DTMF_TONES_FREQUENCIES[dtmf_digit][0]
-#         freq2 = DTMF_TONES_FREQUENCIES[dtmf_digit][1]
-#         if not exec_AT_cmd("AT+VTS=[" + freq1 + "," + freq2 + "," + str(DTMF_TONE_DURATION) + "]"):
-#             # if not exec_AT_cmd("AT+VTS=6"):
-#             print("Error: Failed to pass DTMF Digit : " + str(dtmf_digit))
-#
-#         time.sleep(GAP_BETWEEN_TWO_DTMF_DIGITS)
-
-
-# =================================================================
-
-
-# =================================================================
 # Play wav file
 # =================================================================
 def play_audio():
@@ -281,8 +236,6 @@ def play_audio():
         print("\nAction: Call Terminated...")
 
     print("Play Audio Msg - END")
-
-    # pass_dtmf_digits(DTMF_DIGITS)
 
     return
 
