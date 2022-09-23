@@ -289,7 +289,7 @@ def read_data():
                 print("\n-------------------------------------------")
                 print("New Event: " + modem_data.strip().decode('utf-8'))
 
-                if "b".encode() in modem_data.decode('utf-8').strip(chr(16)):
+                if "b" in modem_data.decode('utf-8').strip(chr(16)):
                     print("b in modem data")
                     print("b count:")
                     print(((modem_data.strip(chr(16))).count("b")))
