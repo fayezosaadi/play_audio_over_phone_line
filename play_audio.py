@@ -240,14 +240,14 @@ def play_audio():
 
     data = wf.readframes(chunk)
 
-    while data != '':
-        print("Sending data chunk.")
-        analog_modem.write(data)
-        data = wf.readframes(chunk)
-        print("Done sending data chunk.")
-        # You may need to change this sleep interval to smooth-out the audio
-        time.sleep(.12)
-        print("after sleep.")
+    # while data != '':
+    print("Sending data chunk.")
+    analog_modem.write(data)
+    # data = wf.readframes(chunk)
+    # print("Done sending data chunk.")
+    # You may need to change this sleep interval to smooth-out the audio
+    # time.sleep(.12)
+    # print("after sleep.")
 
     wf.close()
 
