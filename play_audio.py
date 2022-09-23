@@ -119,8 +119,9 @@ def exec_AT_cmd(modem_AT_cmd):
             # Failed command execution
             return False
 
-    except:
+    except Exception as e:
         disable_modem_event_listener = False
+        print('An exception occurred: {}'.format(e))
         print("Error: unable to write AT command to the modem...")
         return ()
 
@@ -159,42 +160,42 @@ def recover_from_error():
 # =================================================================
 # Pass DTMF Digits
 # =================================================================
-def pass_dtmf_digits(dtmf_digits):
-    # set the default duration/length for DTMF/tone generation in 0.01 (milliseconds) s increments.
-    # The default tone duration is 100 (1 second).
-    DTMF_TONE_DURATION = 100
-
-    # Gep between two DTMF Digit generation in seconds (default 1 sec)
-    # Change this timer to add gap between DTMF Digits
-    GAP_BETWEEN_TWO_DTMF_DIGITS = 1
-
-    # Fixed DTMF Tones (DTMF Frequencies generated on Key press)
-    DTMF_TONES_FREQUENCIES = {'1': ['697', '1209'],
-                              '2': ['697', '1336'],
-                              '3': ['697', '1477'],
-                              '4': ['770', '1209'],
-                              '5': ['770', '1336'],
-                              '6': ['770', '1477'],
-                              '7': ['852', '1209'],
-                              '8': ['852', '1336'],
-                              '9': ['852', '1477'],
-                              '0': ['941', '1336'],
-                              '*': ['941', '1209'],
-                              '#': ['941', '1477']
-                              }
-
-    for dtmf_digit in dtmf_digits:
-
-        # The valid single characters are 0 - 9, #, *.
-        # Generates DTMF tone according to the passed characters.
-        print("Generating DTMF tone for: " + str(dtmf_digit))
-        freq1 = DTMF_TONES_FREQUENCIES[dtmf_digit][0]
-        freq2 = DTMF_TONES_FREQUENCIES[dtmf_digit][1]
-        if not exec_AT_cmd("AT+VTS=[" + freq1 + "," + freq2 + "," + str(DTMF_TONE_DURATION) + "]"):
-            # if not exec_AT_cmd("AT+VTS=6"):
-            print("Error: Failed to pass DTMF Digit : " + str(dtmf_digit))
-
-        time.sleep(GAP_BETWEEN_TWO_DTMF_DIGITS)
+# def pass_dtmf_digits(dtmf_digits):
+#     # set the default duration/length for DTMF/tone generation in 0.01 (milliseconds) s increments.
+#     # The default tone duration is 100 (1 second).
+#     DTMF_TONE_DURATION = 100
+#
+#     # Gep between two DTMF Digit generation in seconds (default 1 sec)
+#     # Change this timer to add gap between DTMF Digits
+#     GAP_BETWEEN_TWO_DTMF_DIGITS = 1
+#
+#     # Fixed DTMF Tones (DTMF Frequencies generated on Key press)
+#     DTMF_TONES_FREQUENCIES = {'1': ['697', '1209'],
+#                               '2': ['697', '1336'],
+#                               '3': ['697', '1477'],
+#                               '4': ['770', '1209'],
+#                               '5': ['770', '1336'],
+#                               '6': ['770', '1477'],
+#                               '7': ['852', '1209'],
+#                               '8': ['852', '1336'],
+#                               '9': ['852', '1477'],
+#                               '0': ['941', '1336'],
+#                               '*': ['941', '1209'],
+#                               '#': ['941', '1477']
+#                               }
+#
+#     for dtmf_digit in dtmf_digits:
+#
+#         # The valid single characters are 0 - 9, #, *.
+#         # Generates DTMF tone according to the passed characters.
+#         print("Generating DTMF tone for: " + str(dtmf_digit))
+#         freq1 = DTMF_TONES_FREQUENCIES[dtmf_digit][0]
+#         freq2 = DTMF_TONES_FREQUENCIES[dtmf_digit][1]
+#         if not exec_AT_cmd("AT+VTS=[" + freq1 + "," + freq2 + "," + str(DTMF_TONE_DURATION) + "]"):
+#             # if not exec_AT_cmd("AT+VTS=6"):
+#             print("Error: Failed to pass DTMF Digit : " + str(dtmf_digit))
+#
+#         time.sleep(GAP_BETWEEN_TWO_DTMF_DIGITS)
 
 
 # =================================================================
@@ -255,19 +256,26 @@ def play_audio():
     timeout = time.time() + 60 * 2
     while 1:
         modem_data = analog_modem.readline()
-        if "OK" in modem_data:
+        if "OK" in modem_data.decode('utf-8'):
             break
         if time.time() > timeout:
             break
 
     disable_modem_event_listener = False
 
-    cmd = "ATH" + "\r"
-    analog_modem.write(cmd.encode())
+    # Hangup the Call
+    # cmd = "ATH" + "\r"
+    # analog_modem.write(cmd.encode())
+
+    # Hangup the Call
+    if not exec_AT_cmd("ATH", "OK"):
+        print("Error: Unable to hang-up the call")
+    else:
+        print("\nAction: Call Terminated...")
 
     print("Play Audio Msg - END")
 
-    pass_dtmf_digits(DTMF_DIGITS)
+    # pass_dtmf_digits(DTMF_DIGITS)
 
     return
 
