@@ -318,7 +318,7 @@ def read_data():
 
                 if ("RING" in modem_data.decode('utf-8')) or ("DATE" in modem_data.decode('utf-8')) or (
                         "TIME" in modem_data.decode('utf-8')) or ("NMBR" in modem_data.decode('utf-8')):
-                    if "RING" in modem_data.modem_data.decode('utf-8').strip(chr(16)):
+                    if "RING" in modem_data.decode('utf-8').strip(chr(16)):
                         ring_data = ring_data + modem_data
                         ring_count = ring_data.count("RING")
                         if ring_count == 1:
