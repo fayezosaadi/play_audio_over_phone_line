@@ -234,7 +234,7 @@ def play_audio():
     global disable_modem_event_listener
     disable_modem_event_listener = True
 
-    wf = wave.open('sample.wav', 'rb')
+    wf = wave.open('dtmf_6.wav', 'rb')
     chunk = 1024
 
     data = wf.readframes(chunk)
