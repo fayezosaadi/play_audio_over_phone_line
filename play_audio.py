@@ -237,7 +237,7 @@ def read_data():
             if modem_data != "":
                 print(modem_data)
 
-                if "b" in modem_data.strip(chr(16)):
+                if "b" in modem_data.decode('utf-8').strip(chr(16)):
                     print("b in modem data")
                     print("b count:")
                     print(((modem_data.strip(chr(16))).count("b")))
@@ -255,7 +255,7 @@ def read_data():
                         else:
                             print("Busy Tone: Call Terminated")
 
-                if "s" == modem_data.strip(chr(16)):
+                if "s" == modem_data.decode('utf-8').strip(chr(16)):
                     # Terminate the call
                     if not exec_AT_cmd("ATH"):
                         print("Error: Silence - Failed to terminate the call")
@@ -264,8 +264,8 @@ def read_data():
                     else:
                         print("Silence: Call Terminated")
 
-                if ("RING" in modem_data) or ("DATE" in modem_data) or ("TIME" in modem_data) or ("NMBR" in modem_data):
-                    if "RING" in modem_data.strip(chr(16)):
+                if ("RING" in modem_data.decode('utf-8')) or ("DATE" in modem_data.decode('utf-8')) or ("TIME" in modem_data.decode('utf-8')) or ("NMBR" in modem_data.decode('utf-8')):
+                    if "RING" in modem_data.modem_data.decode('utf-8').strip(chr(16)):
                         ring_data = ring_data + modem_data
                         ring_count = ring_data.count("RING")
                         if ring_count == 1:
@@ -291,7 +291,7 @@ def close_modem_port():
     try:
         if analog_modem.isOpen():
             analog_modem.close()
-            print(("Serial Port closed..."))
+            print("Serial Port closed...")
     except:
         print("Error: Unable to close the Serial Port.")
         sys.exit()
