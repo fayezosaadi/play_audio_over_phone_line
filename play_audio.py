@@ -190,7 +190,7 @@ def play_audio():
     global disable_modem_event_listener
     disable_modem_event_listener = True
 
-    wf = wave.open('dtmf_6.wav', 'rb')
+    wf = wave.open('/home/pi/Desktop/play_audio_over_phone_line/dtmf_6.wav', 'rb')
     chunk = 1024
 
     data = wf.readframes(chunk)
@@ -207,7 +207,7 @@ def play_audio():
     wf.close()
 
     modem_data = analog_modem.readline()
-    print("AT Command Response: " + modem_data.decode('utf-8').strip(' \t\n\r' + chr(16)))
+    print("modem_data: " + modem_data.decode('utf-8'))
 
     print("after while loop.")
 
