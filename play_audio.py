@@ -74,10 +74,6 @@ def init_modem_settings():
         if not exec_AT_cmd("AT+VCID=1"):
             print("Error: Failed to enable formatted caller report.")
 
-        # Enable formatted caller report.
-        # if not exec_AT_cmd("AT+FCLASS=8"):
-        #	print "Error: Failed to enable formatted caller report."
-
         analog_modem.flushInput()
         analog_modem.flushOutput()
 
@@ -103,7 +99,6 @@ def exec_AT_cmd(modem_AT_cmd):
         modem_response = analog_modem.readline()
         modem_response = modem_response + analog_modem.readline()
 
-        # print(modem_response)
         print("AT Command Response: " + modem_response.decode('utf-8').strip(' \t\n\r' + chr(16)))
 
         disable_modem_event_listener = False
@@ -202,17 +197,8 @@ def play_audio():
     print("Done sending data chunk.")
     # You may need to change this sleep interval to smooth-out the audio
     time.sleep(.12)
-    print("after sleep.")
 
     wf.close()
-
-    modem_data = analog_modem.readline()
-    print("modem_data: " + modem_data.decode('utf-8'))
-
-    print("after while loop.")
-
-    # analog_modem.flushInput()
-    # analog_modem.flushOutput()
 
     cmd = "<DLE><ETX>" + "\r"
     analog_modem.write(cmd.encode())
@@ -227,10 +213,6 @@ def play_audio():
             break
 
     disable_modem_event_listener = False
-
-    # Hangup the Call
-    # cmd = "ATH" + "\r"
-    # analog_modem.write(cmd.encode())
 
     # Hangup the Call
     if not exec_AT_cmd("ATH"):
@@ -294,7 +276,6 @@ def read_data():
                         ring_count = ring_data.count("RING")
                         if ring_count == 1:
                             pass
-                            print(modem_data)
                         elif ring_count == RINGS_BEFORE_AUTO_ANSWER:
                             ring_data = ""
                             play_audio()
