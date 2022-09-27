@@ -199,12 +199,15 @@ def play_audio():
     print("Sending data chunk.")
     analog_modem.write(data)
     # data = wf.readframes(chunk)
-    # print("Done sending data chunk.")
+    print("Done sending data chunk.")
     # You may need to change this sleep interval to smooth-out the audio
-    # time.sleep(.12)
-    # print("after sleep.")
+    time.sleep(.12)
+    print("after sleep.")
 
     wf.close()
+
+    modem_data = analog_modem.readline()
+    print("AT Command Response: " + modem_data.decode('utf-8').strip(' \t\n\r' + chr(16)))
 
     print("after while loop.")
 
